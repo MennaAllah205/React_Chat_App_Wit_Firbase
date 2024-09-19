@@ -19,10 +19,14 @@ const ChatApp = () => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
 
+  // Create reference to the messages collection
   const messagesCollectionRef = collection(db, "messages");
 
   useEffect(() => {
-    if (!user) return; // Don't fetch messages if user is not logged in
+    if (!user) {
+      navigate("/"); // Redirect to home if user is not logged in
+      return;
+    }
 
     const q = query(messagesCollectionRef, orderBy("createdAt", "asc"));
     const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -32,8 +36,9 @@ const ChatApp = () => {
       }));
       setMessages(messagesData);
     });
+
     return () => unsubscribe(); // Cleanup listener on component unmount
-  }, [user]); // Re-run effect if user changes
+  }, [user, navigate, messagesCollectionRef]); // Include messagesCollectionRef in dependency array
 
   const handleSendMessage = async (e) => {
     e.preventDefault();
@@ -63,11 +68,14 @@ const ChatApp = () => {
     }
   };
 
-  useEffect(() => {
-    if (!user) {
-      navigate("/"); // Redirect to home if not logged in
+  const handleLogout = async () => {
+    try {
+      await logout(); // Call the logout function
+      navigate("/"); // Navigate after logout
+    } catch (error) {
+      console.error("Logout error: ", error);
     }
-  }, [user, navigate]);
+  };
 
   if (!user) {
     return (
@@ -83,7 +91,7 @@ const ChatApp = () => {
     <div className="chat-app">
       <header>
         <h2>Welcome, {user.displayName}</h2>
-        <button onClick={logout}>Logout</button>
+        <button onClick={handleLogout}>Logout</button>
         <button onClick={handleClearMessages}>Clear Messages</button>
       </header>
 
