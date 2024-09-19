@@ -1,0 +1,114 @@
+.chat-app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    max-width: 600px;
+    margin: 0 auto;
+    background-image: url('https://i.pinimg.com/736x/67/78/ea/6778ea2dc1de8d98297c4afb3716a855.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: rgba(245, 245, 245, 0.8); 
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .messages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+  }
+  
+  .message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 80%;
+    height: 40px;
+  }
+  
+  .sent {
+    background-color: #d1ffd6;
+    align-self: flex-end;
+  }
+  
+  .received {
+    background-color: #fff;
+    align-self: flex-start;
+  }
+  
+  .message-form {
+    display: flex;
+    padding: 10px;
+    background-color: rgba(245, 245, 245, 0.8); 
+    border-top: 1px solid #ddd;
+  }
+  
+  .message-form input {
+    flex: 1;
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+  }
+  
+  .message-form button {
+    padding: 10px;
+    background-color: #000000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .message-form button:hover {
+    background-color: #333333;
+  }
+  /* Responsive styles */
+@media (max-width: 768px) {
+    .chat-app {
+      max-width: 100%;
+      padding: 0 5px;
+    }
+  
+    header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .message-form {
+      flex-direction: column;
+    }
+  
+    .message-form input {
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+  
+    .message-form button {
+      width: 100%;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .messages {
+      padding: 10px;
+    }
+  
+    .message {
+      font-size: 14px;
+    }
+  
+    .message-form input,
+    .message-form button {
+      padding: 8px;
+    }
+}
